@@ -30,16 +30,42 @@ import ArgonButton from "components/ArgonButton";
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 import Socials from "layouts/authentication/components/Socials";
 import Separator from "layouts/authentication/components/Separator";
+import { useState } from "react";
+import { toastPromisse } from "utils/toast";
+import { UserAPI } from "api/User";
 
 // Images
 const bgImage =
   "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg";
 
 function Cover() {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [universityName, setUniversityName] = useState('');
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    toastPromisse(
+      UserAPI.signup(name, email, password, universityName),
+      {
+        pending: 'Logando...',
+        success: () => { },
+        error: 'Erro ao cadastrar'
+      }
+    );
+
+
+  }
+
+
   return (
     <CoverLayout
-      title="Welcome!"
-      description="Use these awesome forms to login or create new account in your project for free."
+      title="Bem-vindo!"
+      description="Comece sua jornada para o sucesso acadêmico e profissional — Cadastre-se e descubra um mundo de oportunidades!"
       image={bgImage}
       imgPosition="top"
       button={{ color: "dark", variant: "gradient" }}
@@ -47,65 +73,63 @@ function Cover() {
       <Card>
         <ArgonBox p={3} mb={1} textAlign="center">
           <ArgonTypography variant="h5" fontWeight="medium">
-            Register with
+            Cadastrar
           </ArgonTypography>
         </ArgonBox>
-        <ArgonBox mb={2}>
-          <Socials />
-        </ArgonBox>
-        <ArgonBox px={12}>
-          <Separator />
-        </ArgonBox>
-        <ArgonBox pt={2} pb={3} px={3}>
-          <ArgonBox component="form" role="form">
+        <ArgonBox pb={3} px={3}>
+          <form onSubmit={handleSubmit}>
             <ArgonBox mb={2}>
-              <ArgonInput placeholder="Name" />
+              <ArgonInput
+                type="text"
+                placeholder="Nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </ArgonBox>
             <ArgonBox mb={2}>
-              <ArgonInput type="email" placeholder="Email" />
+              <ArgonInput
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </ArgonBox>
             <ArgonBox mb={2}>
-              <ArgonInput type="password" placeholder="Password" />
+              <ArgonInput
+                type="password"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </ArgonBox>
-            <ArgonBox display="flex" alignItems="center">
-              <Checkbox defaultChecked />
+            <ArgonBox mb={2}>
+              <ArgonInput
+                type="text"
+                placeholder="Universidade"
+                value={universityName}
+                onChange={(e) => setUniversityName(e.target.value)}
+              />
+            </ArgonBox>
+            <ArgonBox mt={4} mb={1}>
+              <ArgonButton variant="gradient" color="dark" fullWidth type="submit">
+                Cadastrar
+              </ArgonButton>
+            </ArgonBox>
+          </form>
+          <ArgonBox mt={2}>
+            <ArgonTypography variant="button" color="text" fontWeight="regular">
+              Já possui conta?&nbsp;
               <ArgonTypography
+                component={Link}
+                to="/authentication/sign-in"
                 variant="button"
-                fontWeight="regular"
-                sx={{ cursor: "pointer", userSelect: "none" }}
-              >
-                &nbsp;&nbsp;I agree the&nbsp;
-              </ArgonTypography>
-              <ArgonTypography
-                component="a"
-                href="#"
-                variant="button"
+                color="dark"
                 fontWeight="bold"
                 textGradient
               >
-                Terms and Conditions
+                Entrar
               </ArgonTypography>
-            </ArgonBox>
-            <ArgonBox mt={4} mb={1}>
-              <ArgonButton variant="gradient" color="dark" fullWidth>
-                sign up
-              </ArgonButton>
-            </ArgonBox>
-            <ArgonBox mt={2}>
-              <ArgonTypography variant="button" color="text" fontWeight="regular">
-                Already have an account?&nbsp;
-                <ArgonTypography
-                  component={Link}
-                  to="/authentication/sign-in"
-                  variant="button"
-                  color="dark"
-                  fontWeight="bold"
-                  textGradient
-                >
-                  Sign in
-                </ArgonTypography>
-              </ArgonTypography>
-            </ArgonBox>
+            </ArgonTypography>
           </ArgonBox>
         </ArgonBox>
       </Card>

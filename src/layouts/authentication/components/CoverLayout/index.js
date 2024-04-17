@@ -38,7 +38,7 @@ function CoverLayout({ title, description, image, imgPosition, button, children 
           action={{
             type: "external",
             route: "https://creative-tim.com/product/argon-dashboard-material-ui",
-            label: "Free Download",
+            label: "",
             ...button,
           }}
           transparent
@@ -88,7 +88,7 @@ function CoverLayout({ title, description, image, imgPosition, button, children 
           </Grid>
         </Grid>
       </ArgonBox>
-      <Footer />
+
     </PageLayout>
   );
 }

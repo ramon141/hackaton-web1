@@ -45,11 +45,11 @@ function IllustrationLayout({ color, header, title, description, button, illustr
               {!header ? (
                 <>
                   <ArgonBox mb={1}>
-                    <ArgonTypography variant="h4" fontWeight="bold">
+                    <ArgonTypography variant="h4" fontWeight="bold" style={{ textAlign: 'center' }}>
                       {title}
                     </ArgonTypography>
                   </ArgonBox>
-                  <ArgonTypography variant="body2" fontWeight="regular" color="text">
+                  <ArgonTypography variant="body2" fontWeight="regular" color="text" style={{ textAlign: 'center' }}>
                     {description}
                   </ArgonTypography>
                 </>
@@ -104,7 +104,7 @@ function IllustrationLayout({ color, header, title, description, button, illustr
               )}
               {illustration.description && (
                 <ArgonBox mb={1}>
-                  <ArgonTypography variant="body2" color="white">
+                  <ArgonTypography variant="body2" color="white" style={{ fontSize: 20, fontWeight: 'bold' }}>
                     {illustration.description}
                   </ArgonTypography>
                 </ArgonBox>

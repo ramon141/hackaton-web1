@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Switch from "@mui/material/Switch";
@@ -29,6 +29,8 @@ import ArgonButton from "components/ArgonButton";
 
 // Authentication layout components
 import IllustrationLayout from "layouts/authentication/components/IllustrationLayout";
+import { toastPromisse } from "utils/toast";
+import { UserAPI } from "api/User";
 
 // Image
 const bgImage =
@@ -37,45 +39,77 @@ const bgImage =
 function Illustration() {
   const [rememberMe, setRememberMe] = useState(false);
 
+  const navigate = useNavigate();
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    toastPromisse(
+      UserAPI.login(email, password),
+      {
+        pending: 'Logando...',
+        success: () => {
+          navigate('/dashboard')
+        },
+        error: 'Credenciais inválidas'
+      }
+    );
+
+
+  }
 
   return (
     <IllustrationLayout
-      title="Sign In"
-      description="Enter your email and password to sign in"
+      title="Entrar"
+      description="Informe suas credenciais"
       illustration={{
         image: bgImage,
-        title: '"Attention is the new currency"',
+        title: '',
         description:
-          "The more effortless the writing looks, the more effort the writer actually put into the process.",
+          "Conecte-se, colabore e construa seu futuro — Invista em conexões hoje para colher oportunidades amanhã.",
       }}
     >
-      <ArgonBox component="form" role="form">
-        <ArgonBox mb={2}>
-          <ArgonInput type="email" placeholder="Email" size="large" />
-        </ArgonBox>
-        <ArgonBox mb={2}>
-          <ArgonInput type="password" placeholder="Password" size="large" />
-        </ArgonBox>
-        <ArgonBox display="flex" alignItems="center">
-          <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-          <ArgonTypography
-            variant="button"
-            fontWeight="regular"
-            onClick={handleSetRememberMe}
-            sx={{ cursor: "pointer", userSelect: "none" }}
-          >
-            &nbsp;&nbsp;Remember me
-          </ArgonTypography>
-        </ArgonBox>
-        <ArgonBox mt={4} mb={1}>
-          <ArgonButton color="info" size="large" fullWidth>
-            Sign In
-          </ArgonButton>
-        </ArgonBox>
+      <ArgonBox>
+        <form onSubmit={handleSubmit}>
+          <ArgonBox mb={2}>
+            <ArgonInput type="email" placeholder="Email" size="large"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
+          </ArgonBox>
+          <ArgonBox mb={2}>
+            <ArgonInput type="password" placeholder="Senha" size="large"
+              value={password}
+              required
+              onChange={e => setPassword(e.target.value)}
+            />
+          </ArgonBox>
+          <ArgonBox display="flex" alignItems="center">
+            <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+            <ArgonTypography
+              variant="button"
+              fontWeight="regular"
+              onClick={handleSetRememberMe}
+              sx={{ cursor: "pointer", userSelect: "none" }}
+            >
+              &nbsp;&nbsp;Lembrar-me
+            </ArgonTypography>
+          </ArgonBox>
+          <ArgonBox mt={4} mb={1}>
+            <ArgonButton color="info" size="large" fullWidth type="submit">
+              Entrar
+            </ArgonButton>
+          </ArgonBox>
+        </form>
         <ArgonBox mt={3} textAlign="center">
           <ArgonTypography variant="button" color="text" fontWeight="regular">
-            Don&apos;t have an account?{" "}
+            Ainda não tem conta?{" "}
             <ArgonTypography
               component={Link}
               to="/authentication/sign-up"
@@ -83,12 +117,12 @@ function Illustration() {
               color="info"
               fontWeight="medium"
             >
-              Sign up
+              Cadastro
             </ArgonTypography>
           </ArgonTypography>
         </ArgonBox>
       </ArgonBox>
-    </IllustrationLayout>
+    </IllustrationLayout >
   );
 }
 

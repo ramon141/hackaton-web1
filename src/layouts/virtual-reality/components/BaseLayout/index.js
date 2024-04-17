@@ -105,9 +105,6 @@ function BaseLayout({ children }) {
           <DashboardLayout bgColor="transparent">{children}</DashboardLayout>
         </ArgonBox>
       </ArgonBox>
-      <ArgonBox pb={2} pt={0.25}>
-        <Footer />
-      </ArgonBox>
     </ArgonBox>
   );
 }

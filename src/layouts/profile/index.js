@@ -64,7 +64,6 @@ function Overview() {
         backgroundPositionY: "50%",
       }}
     >
-      <Header />
       <ArgonBox mt={5} mb={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} xl={4}>
@@ -189,7 +188,6 @@ function Overview() {
         </Card>
       </ArgonBox>
 
-      <Footer />
     </DashboardLayout>
   );
 }

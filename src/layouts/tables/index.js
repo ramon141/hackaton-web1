@@ -75,7 +75,6 @@ function Tables() {
           </ArgonBox>
         </Card>
       </ArgonBox>
-      <Footer />
     </DashboardLayout>
   );
 }

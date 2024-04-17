@@ -83,6 +83,14 @@ const routes = [
   },
   {
     type: "route",
+    name: "",
+    key: "virtual-reality",
+    route: "/virtual-reality",
+    icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-app" />,
+    component: <VirtualReality />,
+  },
+  {
+    type: "route",
     name: "RTL",
     key: "rtl",
     route: "/rtl",

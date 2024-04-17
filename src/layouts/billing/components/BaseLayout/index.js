@@ -79,7 +79,6 @@ function BaseLayout({ stickyNavbar, children }) {
         </Grid>
         {children}
       </ArgonBox>
-      <Footer />
     </DashboardLayout>
   );
 }
